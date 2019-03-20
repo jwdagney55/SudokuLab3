@@ -271,4 +271,43 @@ public class Sudoku extends LatinSquare {
 		
 		return true;
 	}
+	
+	public int getRegionNbr(int iCol, int iRow) {
+
+		int i = (iCol / iSqrtSize) + ((iRow / iSqrtSize) * iSqrtSize);
+
+		return i;
+	}
+	
+	private void setRegion(int reg, int[] arr) {
+	
+		int i = (reg / iSqrtSize) * iSqrtSize;
+		int j = (reg % iSqrtSize) * iSqrtSize;		
+		int jMax = j + iSqrtSize;
+		int iMax = i + iSqrtSize;
+		int iCnt = 0;
+		for (; i<iMax; i++) {
+			for (; j<jMax; j++) {
+				super.getLatinSquare()[i][j] = arr[iCnt];
+				iCnt++;
+			}
+		}
+	}
+	private void FillDiagonalRegions() {
+		int i = 0;
+		
+		for (; i<iSize; i+=1+iSqrtSize) {
+			int[] initArray = new int[iSize];
+			for (int j = 1; j<=iSize; j++) {
+				initArray[j-1] = j;
+			}
+			int[] shuffledArray = shuffleArray(initArray);
+			setRegion(i,shuffledArray);
+		}
+	}
+
+	private int[] shuffleArray(int[] initArray) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
