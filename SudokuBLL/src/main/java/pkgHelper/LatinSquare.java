@@ -30,7 +30,7 @@ public class LatinSquare {
 	 * @since Lab #2
 	 */
 	private ArrayList<PuzzleViolation> PV = new ArrayList<PuzzleViolation>();
-	
+
 	/**
 	 * No-arg constructor, make it public, don't do anything in the constructor
 	 * 

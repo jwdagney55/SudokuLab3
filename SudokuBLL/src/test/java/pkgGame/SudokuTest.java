@@ -6,6 +6,11 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+import java.lang.reflect.Method; 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Constructor; 
+
 public class SudokuTest {
 /*
 	@Test
@@ -258,4 +263,39 @@ public class SudokuTest {
 		assertTrue(Arrays.equals(Region5, s1.getRegion(5)));
 		
 	}
+	
+	@Test
+	public void FillDiagonalRegionsTest() throws Exception {
+		Sudoku puzzle = null;
+		
+		Class<?> cls = Class.forName("pkgGame.Sudoku");
+		Constructor cons = cls.getConstructor(new Class[] {int.class});
+		cons.setAccessible(true);
+		
+		puzzle = (Sudoku) cons.newInstance(9);
+		
+		Method methodFillDiagReg = cls.getDeclaredMethod("FillDiagonalRegions",null);
+		methodFillDiagReg.setAccessible(true);
+		methodFillDiagReg.invoke(puzzle,null);
+	}
+	
+	/* @Test
+	public void setRegionTest() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+		Sudoku puzzle = null;
+		
+		Class<?> cls = Class.forName("pkgGame.Sudoku");
+		Constructor cons = cls.getConstructor(new Class[] {int.class});
+		cons.setAccessible(true);
+		puzzle =  (Sudoku) cons.newInstance(9);
+		Class[] cArgs = new Class[2];
+		cArgs[0] = int.class;
+		cArgs[1] = int[].class;
+		Method methodSetRegion = cls.getDeclaredMethod("setRegion",cArgs);
+		methodSetRegion.setAccessible(true);
+		Class[] arrArgs = new Class[2];
+		arrArgs[0] = 2;
+		methodSetRegion.invoke(puzzle,);
+		
+	}
+	*/
 }
