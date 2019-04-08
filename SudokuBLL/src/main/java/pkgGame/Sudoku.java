@@ -284,9 +284,7 @@ public class Sudoku extends LatinSquare {
 	}
 	
 	private void setRegion(int reg, int[] arr) {
-	
-		
-				
+			
 		int jMax = ((reg % iSqrtSize) * iSqrtSize) + iSqrtSize;
 		int iMax = ((reg / iSqrtSize) * iSqrtSize) + iSqrtSize;
 		int iCnt = 0;
@@ -315,9 +313,6 @@ public class Sudoku extends LatinSquare {
 	
 	public int[] shuffleArray(int[] list) {
 		int[] newList = new int[list.length];
-		for (int i = 0; i < newList.length; i++) {
-			newList[i] = 0;
-		}
 		for (int i = 0; i < list.length; i++) {
 			boolean notPlaced = true;
 			while (notPlaced) {
@@ -347,5 +342,11 @@ public class Sudoku extends LatinSquare {
 			}
 			System.out.print(row[iSize-1]+"\n");
 		}
+	}
+	
+	private void ShuffleRegion(int r) {
+		 
+		int[] shuffledArray = shuffleArray(getRegion(r));
+		setRegion(r, shuffledArray);		
 	}
 }

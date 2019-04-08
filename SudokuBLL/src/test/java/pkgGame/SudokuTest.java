@@ -266,6 +266,7 @@ public class SudokuTest {
 		
 	}
 	
+	// Also confirms setRegion (Test for setRegion(int reg, int[] arr))
 	@Test
 	public void FillDiagonalRegionsTest() throws Exception {
 		Sudoku puzzle = null;
@@ -283,7 +284,8 @@ public class SudokuTest {
 		int[] region0 = puzzle.getRegion(0);
 		int[] region4 = puzzle.getRegion(4);
 		int[] region8 = puzzle.getRegion(8);
-		//puzzle.printPuzzle();
+		puzzle.printPuzzle();
+		System.out.println("************");
 		assertTrue(puzzle.hasAllValues(region0,values));
 		assertTrue(puzzle.hasAllValues(region4, values));
 		assertTrue(puzzle.hasAllValues(region8, values));
@@ -306,5 +308,71 @@ public class SudokuTest {
 		int regNum = puzzle.getRegionNbr(3, 8);
 		int expected = 7;
 		assertTrue(regNum == expected);
+	}
+	
+	@Test
+	public void TestShuffleArray() throws Exception {
+		int[] arr = {1, 2, 3, 4};
+		int[][] puzzle = {
+				{1, 2, 3, 4}, 
+				{2, 3, 4, 1}, 
+				{3, 4, 1, 2}, 
+				{4, 1, 2, 3}};
+		Sudoku s1 = new Sudoku(puzzle);
+		LatinSquare ls = new LatinSquare();
+		assertTrue(ls.hasAllValues(arr, s1.shuffleArray(arr)));
+	}
+	
+	@Test
+	public void shuffleRegionTest() throws Exception{
+		Sudoku puzzle = null;
+		
+		Class<?> cls = Class.forName("pkgGame.Sudoku");
+		Constructor cons = cls.getConstructor(new Class[] {int.class});
+		cons.setAccessible(true);
+		
+		puzzle = (Sudoku) cons.newInstance(9);
+		Method methodShuffleRegion = cls.getDeclaredMethod("ShuffleRegion",int.class);
+		methodShuffleRegion.setAccessible(true);
+		Method methodSetRegion = cls.getDeclaredMethod("setRegion",int.class,int[].class);
+		methodSetRegion.setAccessible(true);
+		
+		int[] values = {1,2,3,4,5,6,7,8,9};
+		methodSetRegion.invoke(puzzle, 3, values);
+		
+		puzzle.printPuzzle();
+		System.out.println("******************");
+		
+		methodShuffleRegion.invoke(puzzle, 3);
+		puzzle.printPuzzle();
+		
+		assertFalse(Arrays.equals(values,puzzle.getRegion(3)));
+		
+	
+	}
+	
+	@Test
+	public void printPuzzle_test() {
+		Sudoku mySudoku=null;
+		
+		int[][] puzzle = { 
+				{ 5, 3, 4, 6, 7, 8, 9, 1, 2 }, 
+				{ 6, 7, 2, 1, 9, 5, 3, 4, 8 }, 
+				{ 1, 9, 8, 3, 4, 2, 5, 6, 7 },
+				{ 8, 5, 9, 7, 6, 1, 4, 2, 3 }, 
+				{ 4, 2, 6, 8, 5, 3, 7, 9, 1 }, 
+				{ 7, 1, 3, 9, 2, 4, 8, 5, 6 },
+				{ 9, 6, 1, 5, 3, 7, 2, 8, 4 }, 
+				{ 2, 8, 7, 4, 1, 9, 6, 3, 5 }, 
+				{ 3, 4, 5, 2, 8, 6, 1, 7, 9 } };
+		
+		try {
+			mySudoku=new Sudoku(puzzle);
+		} catch (Exception e) {
+			fail("Bad Sudoku");
+		}
+		
+		mySudoku.printPuzzle();
+		System.out.println("************************");
 	}
 }
