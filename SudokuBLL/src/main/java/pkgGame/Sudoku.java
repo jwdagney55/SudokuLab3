@@ -285,19 +285,20 @@ public class Sudoku extends LatinSquare {
 	
 	private void setRegion(int reg, int[] arr) {
 	
-		int i = (reg / iSqrtSize) * iSqrtSize;
-		int j = (reg % iSqrtSize) * iSqrtSize;		
-		int jMax = j + iSqrtSize;
-		int iMax = i + iSqrtSize;
+		
+				
+		int jMax = ((reg % iSqrtSize) * iSqrtSize) + iSqrtSize;
+		int iMax = ((reg / iSqrtSize) * iSqrtSize) + iSqrtSize;
 		int iCnt = 0;
-		for (; i<iMax; i++) {
-			System.out.println(i);
-			for (; j<jMax; j++) {
-				System.out.println(j);
+		for (int i = (reg / iSqrtSize) * iSqrtSize; i<iMax; i++) {
+		//	System.out.println(i);
+			for (int j = (reg % iSqrtSize) * iSqrtSize; j<jMax; j++) {
+				//System.out.println(j);
 				super.getLatinSquare()[i][j] = arr[iCnt];
 				iCnt++;
 			}
 		}
+		
 	}
 	private void FillDiagonalRegions() {
 		int i = 0;
