@@ -283,7 +283,7 @@ public class SudokuTest {
 		int[] region0 = puzzle.getRegion(0);
 		int[] region4 = puzzle.getRegion(4);
 		int[] region8 = puzzle.getRegion(8);
-		puzzle.printPuzzle();
+		//puzzle.printPuzzle();
 		assertTrue(puzzle.hasAllValues(region0,values));
 		assertTrue(puzzle.hasAllValues(region4, values));
 		assertTrue(puzzle.hasAllValues(region8, values));
@@ -292,23 +292,19 @@ public class SudokuTest {
 
 	}
 	
-	/* @Test
-	public void setRegionTest() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
-		Sudoku puzzle = null;
-		
-		Class<?> cls = Class.forName("pkgGame.Sudoku");
-		Constructor cons = cls.getConstructor(new Class[] {int.class});
-		cons.setAccessible(true);
-		puzzle =  (Sudoku) cons.newInstance(9);
-		Class[] cArgs = new Class[2];
-		cArgs[0] = int.class;
-		cArgs[1] = int[].class;
-		Method methodSetRegion = cls.getDeclaredMethod("setRegion",cArgs);
-		methodSetRegion.setAccessible(true);
-		Class[] arrArgs = new Class[2];
-		arrArgs[0] = 2;
-		methodSetRegion.invoke(puzzle,);
-		
+	@Test
+	public void getRegionNumberTest() throws Exception {
+		Sudoku puzzle = new Sudoku(9);
+		int regNum = puzzle.getRegionNbr(0, 0);
+		int expected = 0;
+		assertTrue(regNum == expected);
 	}
-	*/
+	
+	@Test
+	public void getRegionNumberTest1() throws Exception{
+		Sudoku puzzle = new Sudoku(9);
+		int regNum = puzzle.getRegionNbr(3, 8);
+		int expected = 7;
+		assertTrue(regNum == expected);
+	}
 }
